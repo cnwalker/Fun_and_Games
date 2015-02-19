@@ -1,13 +1,14 @@
 import time
 
-# delay is in seconds
+# Allowed is the maximum number of calls to the API allowed over the course of
+# interval. interval is in seconds
 class ApiManager(object):
-    def __init__(self, allowed, delay):
+    def __init__(self, allowed, interval):
         self.ncalls = 0
         self.last_call = 0
         self.queue = []
         self.allowed = allowed
-        self.delay = delay
+        self.interval = interval
 
     def call_api(self, cur_input):
         print("Api Called: " + cur_input)
@@ -20,14 +21,14 @@ class ApiManager(object):
     def call_asynchronus(self, cur_input):
         if self.last_call == 0:
             self.last_call = time.time()
-        if time.time() - self.last_call < self.delay:
+        if time.time() - self.last_call < self.interval:
             if self.ncalls < self.allowed:
                 self.call_api(cur_input)
                 self.ncalls += 1
             else:
                 self.queue.append(cur_input)
                 while len(self.queue) > 0:
-                    if(time.time() - self.last_call > self.delay):
+                    if(time.time() - self.last_call > self.interval):
                         self.ncalls = 0
                         self.last_call = time.time()
                     else:
