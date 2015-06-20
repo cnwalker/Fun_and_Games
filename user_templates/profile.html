@@ -1,0 +1,136 @@
+{% extends "base_site.html" %}
+
+{% block content %}
+<nav class="top-bar" data-topbar>
+      <ul class="title-area">
+               
+        <li class="name">
+          <h1> <a href="welcome.html">TaskMaster</a></h1>
+        </li>
+        <li class="toggle-topbar menu-icon"><a href="#"><span>menu</span></a></li>
+      </ul>
+ 
+      <section class="top-bar-section">
+        <ul style = "margin-right: 1%;" class="left">
+          <a class = "button" href = "newtask.html">Create a Task </a>
+        </ul>
+
+        <!-- search bar -->  
+        <ul>
+			<li class="large-7 small-6 columns">
+				<form>
+					<div class="large-9 small-8 columns">
+						<input id="autocomplete" type="search" placeholder="Search tasks" tabindex="1" autocomplete="off"/>
+					</div>
+					<div class="large-3 small-4 columns">
+						<a href="#" class="button">Search</a>
+					</div>
+				</form>
+			</li>
+        </ul>
+
+        <div class="row" class="small-4 columns"> 
+        <ul style = "margin-right: 1%;" class="right">
+          <li class="has-dropdown">
+            <a>My Account</a>
+            <ul class="dropdown">
+              <li class="highlight"><a href="publicprofile.html">My Profile</a></li>
+			  <li class="highlight"><a href="myitems.html">My Tasks</a></li>
+              <li class="highlight"><a href="profile.html">Manage Account</a><li>
+              <li class="highlight"><a href="#">Logout</a><li>
+            </ul>
+          </li>
+        </ul> 
+      </div>
+
+      </section>
+    </nav>
+
+{% if successful == False %}
+	<div class = "row">
+		<div class = "large-8 large-centered columns">
+			<div class="panel callout">
+			<p> There was a problem with your submission. Please try again.</p>
+			</div>
+		</div>
+	</div>
+{% endif %}
+
+<form enctype="multipart/form-data" action = "/accounts/profile/" method = "post"> {% csrf_token %}
+
+<div class = "row">
+	<div class = "large-8 large-centered columns">
+		<div class="panel">
+			<div class="row">
+				<div class="large-12 medium-12 columns">
+					<label for = "thumbnail">Profile Picture</label>
+					{% if thumbnail %}
+						<img style = "max-width: 240px; max-height: 240px;" src ="{{MEDIA_URL}}{{thumbnail}}">
+					{% else %}
+						<img style = "max-width: 240px; max-height: 240px;" src ="/static/chapters/images/no_letters.jpg">
+					{% endif %}
+					{{form.thumbnail}}
+					<input type="file" name="pic" accept="image/*">
+					
+					<label for = "first_name">First Name</label> 
+					<input id="id_first_name" maxlength="250" value = "{{first_name}}" name="first_name" type="text">
+					
+					<label for = "last_name">Last Name</label> 
+					<input id="id_last_name" maxlength="250" value = "{{last_name}}" name="last_name" type="text">
+					
+					<label for = "email">Email</label> 
+					<input id="id_email" maxlength="255" value = "{{email}}" name="email" type="email">
+					
+					<label for = "phone">Phone Number</label> 
+					<input id="id_phone "maxlength="255" value = "{{phone}}" name="phone" type="text">
+					</form>
+					<!-- new forms be here-->
+					<!--
+					
+
+
+                      _____ 
+                   ,-'     `._ 
+                 ,'           `.        ,-. 
+               ,'               \       ),.\ 
+     ,.       /                  \     /(  \; 
+    /'\\     ,o.        ,ooooo.   \  ,'  `-') 
+    )) )`. d8P"Y8.    ,8P"""""Y8.  `'  .--"' 
+   (`-'   `Y'  `Y8    dP       `'     / 
+    `----.(   __ `    ,' ,---.       ( 
+           ),--.`.   (  ;,---.        ) 
+          / \O_,' )   \  \O_,'        | 
+         ;  `-- ,'       `---'        | 
+         |    -'         `.           | 
+        _;    ,            )          : 
+     _.'|     `.:._   ,.::" `..       | 
+  --'   |   .'     """         `      |`. 
+        |  :;      :   :     _.       |`.`.-'--. 
+        |  ' .     :   :__.,'|/       |  \ 
+        `     \--.__.-'|_|_|-/        /   ) 
+         \     \_   `--^"__,'        ,    | 
+   -hrr- ;  `    `--^---'          ,'     | 
+          \  `                    /      / 
+           \   `    _ _          / 
+            \           `       / 
+             \           '    ,' 
+              `.       ,   _,' 
+                `-.___.---' 
+				-->
+					<form>
+					<label>New Password</label> 
+					<input  maxlength="255" placeholder="new password" type="password">
+					
+					<label>Confirm: Current Password</label> 
+					<input  maxlength="255" placeholder="current password" type="password">
+					
+					<input style = "float: right;" class = "button" type = "submit" value = "Submit Changes"/>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+</form>
+
+<hr />{% endblock %}

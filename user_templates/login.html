@@ -1,0 +1,35 @@
+{% extends "base_site.html" %}
+
+{% block content %}
+
+<!-- {% if rMessage == True %}
+	<p> You have registered! Please login to upload a profile picture and get started! </p>
+{% endif %} -->
+
+{% if form.errors %}
+	<p class = "error"> Invalid username or password </p>
+{% endif %}
+
+<form action = "/accounts/auth/" method = "post"> {% csrf_token %}
+	<div class="row">
+		<div class="col-lg-12">
+			<label for = "email">Email</label>
+			<input type="text" name="email" value="" id="email"/>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-lg-12">
+			<label for = "password">Password</label>
+			<input type="password" name="password" value="" id="password"/>
+			<input style = "float: right;" class = "button" type = "submit" value = "Login"/>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-lg-7">
+			<p align = "center">Don't have an account? <a href = "/accounts/register"> Click Here </a> to make one!</p>
+		</div>
+	</div>
+</form>
+{% endblock %}

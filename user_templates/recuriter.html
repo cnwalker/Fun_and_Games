@@ -1,0 +1,85 @@
+{% extends "base_site.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="large-3 columns">
+    	<h1><a href = "/"><img src="/static/chapters/images/d_header_logo.jpg"></a></h1>
+    </div>
+    <div class="large-9 columns">
+    	<ul class="right button-group">
+    		<li><a href="https://www.facebook.com/groups/thedialectic/" target="_blank" class="button">Facebook</a></li>
+    		<li><a href="#" class="button">About</a></li>
+    		<li><a href="/accounts/login" class="button">Log In</a></li>
+        </ul>
+    </div>
+</div>	
+
+{% if successful == False %}
+	<div class = "row">
+		<div class = "large-8 large-centered columns">
+			<p style = "color: red"> There was a problem with your registration. Please try again.</p>
+		</div>
+	</div>
+{% endif %}
+{% endblock%}
+
+
+<form action = "/accounts/register/" method = "post"> {% csrf_token %}
+	<div class = "row">
+		<div class = "large-8 large-centered columns">
+			<label for = "first_name"> First Name </label> 
+			{{form.first_name}}
+		</div>
+	</div>
+	
+	<div class = "row">
+		<div class = "large-8 large-centered columns">
+			<label for = "last_name"> Last Name </label> 
+			{{form.last_name}}
+		</div>
+	</div>
+	
+	<div class = "row"> 
+		<div class="large-8 large-centered columns">
+			<label for = "email"> Email </label> 
+			{{form.email}} 
+		</div>
+	</div>
+	
+	<div class = "row">
+		<div class = "large-8 large-centered columns">
+			<label for = "chapter"> Chapter </label>
+			<select name = "chapter">
+				<option selected="selected" disabled> </option>
+					<option value = "None"> None </option>
+					{% for chapter in chapter_list %}
+						<option value = "{{chapter.name}}">
+							{{chapter.name}}
+						</option>
+					{% endfor %}
+				</option>
+			</select>
+		</div>
+	</div>
+		
+	<div class = "row"> 
+		<div class = "large-8 large-centered columns">
+			<label for = "password"> Password </label> 
+			{{form.password1}} 
+		</div>
+	</div>
+	
+	<div class = "row"> 
+		<div class = "large-8 large-centered columns">
+			<label for = "password_confirmation"> Confirm Password </label> 
+			{{form.password2}}
+		</div>
+	</div>
+	
+	
+	<div class = "row">
+		<div class = "large-8 large-centered columns">
+			<input style = "float: right;" class = "button" type = "submit" value = "Register"/>
+		</div>
+	</div>
+</form>
