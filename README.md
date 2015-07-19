@@ -1,4 +1,4 @@
-Quick
+Fun and Games
 =====
 
-Short programs that perform relatively simple tasks
+Programs for having fun
